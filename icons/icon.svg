@@ -1,0 +1,21 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with Rounded Corners (Squircle) -->
+  <rect width="1024" height="1024" rx="200" fill="url(#bgGradient)" />
+  
+  <!-- Logo Artwork (Centered and Scaled with extra padding for Safe Zone) -->
+  <g transform="translate(192, 192) scale(1.25)">
+    <!-- Chat Bubble -->
+    <rect x="82" y="96" width="348" height="228" rx="46" fill="#FFFFFF" />
+    <path d="M 118,318 L 82,408 L 208,318 Z" fill="#FFFFFF" />
+    
+    <!-- Lightning Bolt (Cyber Bolt Design) -->
+    <path d="M 350,52 L 310,52 L 160,215 L 280,215 L 192,368 L 340,205 L 220,205 Z" fill="#3b82f6" />
+  </g>
+</svg>
