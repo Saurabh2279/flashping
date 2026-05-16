@@ -1,7 +1,7 @@
 {
   "name": "FlashPing",
   "short_name": "FlashPing",
-  "id": "/flashping",
+  "id": "/",
   "description": "Send WhatsApp messages without saving numbers",
   "start_url": ".",
   "display": "standalone",
@@ -13,13 +13,25 @@
       "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
