@@ -1,4 +1,4 @@
-const CACHE_NAME = 'flashping-v2';
+const CACHE_NAME = 'flashping-v3';
 const ASSETS = [
   './',
   './index.html',
