@@ -24,6 +24,7 @@ export function setupHandlers() {
   trapFocus(elements.contactModal);
   trapFocus(elements.legalModal);
   trapFocus(elements.feedbackModal);
+  trapFocus(elements.tipModal);
 
   // Theme Toggle
   elements.themeToggle.addEventListener('click', () => {
@@ -180,6 +181,11 @@ export function setupHandlers() {
     if (elements.feedbackModal.classList.contains('show')) {
       elements.feedbackModal.classList.remove('show');
       if (window.history.state?.feedback) history.back();
+      return;
+    }
+    if (elements.tipModal.classList.contains('show')) {
+      elements.tipModal.classList.remove('show');
+      if (window.history.state?.tip) history.back();
       return;
     }
 
@@ -518,5 +524,24 @@ export function setupHandlers() {
   elements.feedbackText.addEventListener('input', () => {
     elements.feedbackText.style.height = '56px';
     elements.feedbackText.style.height = elements.feedbackText.scrollHeight + 'px';
+  });
+
+  // Tip Modal Handlers
+  const openTip = () => {
+    elements.tipModal.classList.add('show');
+    lockScroll(true);
+    history.pushState({ tip: true }, '');
+    setTimeout(() => elements.tipClose.focus(), 100);
+  };
+  const closeTip = (back = true) => {
+    elements.tipModal.classList.remove('show');
+    lockScroll(false);
+    if (back && window.history.state?.tip) history.back();
+  };
+
+  elements.tipBtn.addEventListener('click', openTip);
+  elements.tipClose.addEventListener('click', closeTip);
+  elements.tipModal.addEventListener('click', (e) => {
+    if (e.target === elements.tipModal) closeTip();
   });
 }

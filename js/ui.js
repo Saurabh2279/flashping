@@ -77,4 +77,9 @@ export const elements = {
   feedbackSubmit: $('feedbackSubmit'),
   feedbackName: $('feedbackName'),
   feedbackText: $('feedbackText'),
+
+  // Tip Modal
+  tipBtn: $('tipBtn'),
+  tipModal: $('tipModal'),
+  tipClose: $('tipClose'),
 };
