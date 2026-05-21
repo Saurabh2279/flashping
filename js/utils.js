@@ -32,9 +32,9 @@ export function timeAgo(ts) {
  */
 export function showToast(msg) {
   const toast = $('toast');
-  toast.textContent = msg;
+  toast.innerHTML = msg;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
+  setTimeout(() => toast.classList.remove('show'), 3500); // Extended slightly so users have time to tap links
 }
 
 /**

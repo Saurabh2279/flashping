@@ -20,6 +20,12 @@ export function setupPWA() {
     deferredPrompt = e;
   });
 
+  window.addEventListener('appinstalled', () => {
+    showToast('✅ FlashPing installed successfully! <a href="." target="_blank" style="color: #10b981; font-weight: 700; text-decoration: underline; margin-left: 8px; display: inline-flex; align-items: center; gap: 2px;">Open App</a>');
+    elements.headerInstallBtn.style.display = 'none';
+    deferredPrompt = null;
+  });
+
   elements.headerInstallBtn.addEventListener('click', () => {
     // Always show the unified install instructions modal first
     elements.iosInstallModal.classList.add('show');
