@@ -20,21 +20,27 @@ export function setupPWA() {
     deferredPrompt = e;
   });
 
-  elements.headerInstallBtn.addEventListener('click', async () => {
+  elements.headerInstallBtn.addEventListener('click', () => {
+    // Always show the unified install instructions modal first
+    elements.iosInstallModal.classList.add('show');
+    lockScroll(true);
+    setTimeout(() => elements.iosClose.focus(), 100);
+  });
+
+  elements.pwaInstallPromptBtn.addEventListener('click', async () => {
     if (deferredPrompt) {
-      // Browser supports native install
+      // Browser supports native install PWA prompt
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
         showToast('Installing FlashPing...');
         elements.headerInstallBtn.style.display = 'none';
+        closeIos();
       }
       deferredPrompt = null;
     } else {
-      // Show manual instructions (iOS/Other)
-      elements.iosInstallModal.classList.add('show');
-      lockScroll(true);
-      setTimeout(() => elements.iosClose.focus(), 100);
+      // If no native PWA prompt is active/supported
+      showToast('Open Google Chrome (Android/Desktop) or Safari (iOS) to install.');
     }
   });
 

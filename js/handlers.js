@@ -544,4 +544,12 @@ export function setupHandlers() {
   elements.tipModal.addEventListener('click', (e) => {
     if (e.target === elements.tipModal) closeTip();
   });
+  elements.copyUpiBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(elements.upiIdField.value);
+      showToast('UPI ID copied!');
+    } catch {
+      showToast('Failed to copy UPI ID');
+    }
+  });
 }

@@ -64,10 +64,11 @@ export const elements = {
   legalClose: $('legalClose'),
   legalOk: $('legalOk'),
 
-  // iOS Install Modal
+  // iOS/Unified Install Modal
   iosInstallModal: $('iosInstallModal'),
   iosClose: $('iosClose'),
   iosOk: $('iosOk'),
+  pwaInstallPromptBtn: $('pwaInstallPromptBtn'),
 
   // Feedback Modal
   feedbackBtn: $('feedbackBtn'),
@@ -82,4 +83,6 @@ export const elements = {
   tipBtn: $('tipBtn'),
   tipModal: $('tipModal'),
   tipClose: $('tipClose'),
+  copyUpiBtn: $('copyUpiBtn'),
+  upiIdField: $('upiIdField'),
 };
