@@ -69,10 +69,10 @@
 
 .input-textarea {
   resize: none;
-  height: 56px;
-  min-height: 56px;
-  padding-top: 14px;
-  overflow: hidden;
+  height: 120px;
+  min-height: 120px;
+  padding-top: 24px;
+  overflow-y: auto;
   transition: all var(--transition);
 }
 
@@ -102,13 +102,7 @@
 }
 
 .validation-msg {
-  font-size: 0.8rem;
-  min-height: 24px;
-  padding: 2px 4px;
-  color: var(--danger);
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  display: none;
 }
 
 .validation-msg.valid {

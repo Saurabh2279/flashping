@@ -34,6 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="icons/tiny-favicon.png">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="147cb9fb-99d2-4677-95e5-925f8af03bb1"></script>
   <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -254,10 +255,11 @@
     <!-- VIEW: Recents -->
     <section class="view-panel" id="recentsPanel">
       <div class="data-alert">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="8" x2="12" y2="12" />
-          <line x1="12" y1="16" x2="12.01" y2="16" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          style="flex-shrink: 0; opacity: 0.85;">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
         </svg>
         <span>Data is stored locally. Clearing browser cache or site data will delete these numbers.</span>
       </div>
@@ -285,10 +287,11 @@
     <!-- VIEW: Saved Contacts -->
     <section class="view-panel" id="savedPanel">
       <div class="data-alert">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="8" x2="12" y2="12" />
-          <line x1="12" y1="16" x2="12.01" y2="16" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          style="flex-shrink: 0; opacity: 0.85;">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
         </svg>
         <span>Data is stored locally. Clearing browser cache or site data will delete these numbers. Export your
           contacts if you want to save them before clearing.</span>
@@ -408,11 +411,23 @@
       <div class="modal-body modal-legal">
         <h4>Privacy Policy</h4>
         <p><strong>Data Storage:</strong> All phone numbers, names, and messages are stored locally in your browser
-          cache.
-          We have no access to this data. <em>Note: Clearing your browser cache or website data will
-            permanently delete your recents and saved contacts.</em></p>
-        <p><strong>Analytics:</strong> We use anonymous analytics to track country-level traffic. No personal
-          information or IP addresses are stored or linked to you.</p>
+          cache. We have no access to this data.</p>
+        <div
+          style="font-size: 0.78rem; color: var(--text-secondary); background: var(--bg-input); border: 1px solid var(--border); padding: 12px; border-radius: 8px; margin: 12px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            style="flex-shrink: 0; margin-top: 1.5px; color: var(--accent);">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <span><strong style="color: var(--text-primary);">CRITICAL WARNING:</strong> Clearing your browser cache,
+            history, or website data will <strong>permanently delete</strong> all your recents and saved contacts. This
+            action is irreversible.</span>
+        </div>
+        <p><strong>Analytics:</strong> We use anonymous, cookie-less analytics via <a href="https://docs.umami.is/docs"
+            target="_blank" rel="noopener"
+            style="color: var(--accent); text-decoration: underline; font-weight: 500;">Umami Analytics</a> to track
+          country-level traffic. No personal information, cookies, or IP addresses are stored or linked to you.</p>
 
         <h4>Terms of Service</h4>
         <p><strong>Service:</strong> FlashPing uses WhatsApp's official <a
@@ -440,25 +455,47 @@
         <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">Install FlashPing on
           your device for offline support, fast launch, and a native app experience.</p>
 
+        <div
+          style="font-size: 0.72rem; color: #10b981; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px; border-radius: 6px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.35;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            style="flex-shrink: 0; margin-top: 1px;">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <span><strong>100% Safe:</strong> Installs securely as a <strong>Progressive Web App (PWA)</strong> directly
+            via your browser. No harmful downloads (like <strong>.APK, .EXE, or .DMG</strong> installer files) are
+            required, keeping your system completely safe. <a href="https://web.dev/explore/progressive-web-apps"
+              target="_blank" rel="noopener" style="color: #10b981; text-decoration: underline; font-weight: 600;">Learn
+              more about PWA</a>.</span>
+        </div>
+
         <div style="display: flex; flex-direction: column; gap: 16px;">
-          <!-- Section 1: Android & Desktop -->
-          <div
+          <!-- Section 1: Android Users -->
+          <div id="pwaAndroidSection"
             style="border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-sm); background: var(--bg-input); display: flex; flex-direction: column; gap: 8px;">
             <div
               style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #3DDC84;">
                 <path
                   d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-5.72-4.56l1.32-1.32c.29-.29.29-.77 0-1.06a.75.75 0 0 0-1.06 0l-1.48 1.48C12.78 2.2 12.4 2.1 12 2.1c-.4 0-.78.1-1.14.24L9.38.86a.75.75 0 0 0-1.06 0c-.29.29-.29.77 0 1.06l1.32 1.32C8.16 4.34 7 6.03 7 8h10c0-1.97-1.16-3.66-2.62-4.56zM9 5.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
-              </svg> Android Users
+              </svg>
+              Android Users
             </div>
             <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 0; line-height: 1.4;">
               For a <strong>proper standalone application</strong>, we highly recommend using <strong>Google
-                Chrome</strong>, <strong>Microsoft Edge</strong>, or <strong>Samsung Internet</strong>.
+                Chrome</strong> or <strong>Samsung Internet</strong>.
             </p>
-            <p style="font-size: 0.74rem; color: var(--text-secondary); opacity: 0.8; margin: 2px 0 0 0; line-height: 1.4;">
-              <em>Note: You can still install FlashPing as a home screen shortcut if you are using other browsers (like Brave or Firefox).</em>
-            </p>
-            <button id="pwaInstallPromptBtn" class="promo-btn support-btn"
+            <div
+              style="font-size: 0.74rem; color: var(--text-secondary); opacity: 0.9; margin: 2px 0 0 0; line-height: 1.4; border-top: 1px dashed var(--border); padding-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 600;">Other Browsers (like Brave or Firefox):</span>
+              <ul
+                style="margin: 0; padding-left: 14px; color: var(--text-muted); font-size: 0.72rem; display: flex; flex-direction: column; gap: 2px;">
+                <li>Tap browser menu (three dots) &rarr; select <strong>"Add to Home screen"</strong> or
+                  <strong>"Install"</strong>.
+                </li>
+              </ul>
+            </div>
+            <button class="promo-btn support-btn pwa-install-btn"
               style="width: 100%; height: 40px; font-size: 0.85rem; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -467,40 +504,87 @@
               </svg>
               Install App
             </button>
-            <div
-              style="font-size: 0.72rem; color: #10b981; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 8px; border-radius: 6px; margin-top: 4px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.35;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                style="flex-shrink: 0; margin-top: 1px;">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
-              <span><strong>100% Safe:</strong> Installs securely as a <strong>Progressive Web App (PWA)</strong>
-                directly via your browser. No harmful APK or file downloads are required, keeping your system completely
-                safe. <a href="https://web.dev/explore/progressive-web-apps" target="_blank" rel="noopener"
-                  style="color: #10b981; text-decoration: underline; font-weight: 600;">Learn more about PWA</a>.</span>
-            </div>
           </div>
 
-          <!-- Section 2: iOS Users -->
-          <div
+          <!-- Section 2: Windows & Desktop Users -->
+          <div id="pwaWindowsSection"
+            style="border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-sm); background: var(--bg-input); display: flex; flex-direction: column; gap: 8px;">
+            <div
+              style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #0078D4;">
+                <path
+                  d="M0 3.449L9.75 2.1v9.45H0V3.449zM0 12.45h9.75v9.45L0 20.551v-8.1zM11.25 1.899L24 0v11.55H11.25V1.899zM11.25 12.45H24v11.55l-12.75-1.9v-9.65z" />
+              </svg>
+              Windows & Desktop Users
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 0; line-height: 1.4;">
+              For a <strong>proper standalone application</strong>, we highly recommend using <strong>Google
+                Chrome</strong> or <strong>Microsoft Edge</strong>.
+            </p>
+            <div
+              style="font-size: 0.74rem; color: var(--text-secondary); opacity: 0.9; margin: 2px 0 0 0; line-height: 1.4; border-top: 1px dashed var(--border); padding-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 600;">Other Browsers (like Brave or Opera):</span>
+              <ul
+                style="margin: 0; padding-left: 14px; color: var(--text-muted); font-size: 0.72rem; display: flex; flex-direction: column; gap: 2px;">
+                <li>Click the <strong>Install</strong> icon in the address bar, or menu (three lines/dots) &rarr; select
+                  <strong>"Install FlashPing"</strong>.
+                </li>
+                <li
+                  style="list-style-type: none; margin-left: -14px; margin-top: 2px; color: var(--text-muted); opacity: 0.75; font-style: italic;">
+                  *Note: Desktop Firefox does not natively support PWA installation.</li>
+              </ul>
+            </div>
+            <button class="promo-btn support-btn pwa-install-btn"
+              style="width: 100%; height: 40px; font-size: 0.85rem; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Install App
+            </button>
+          </div>
+
+          <!-- Section 3: Apple Users -->
+          <div id="pwaAppleSection"
             style="border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-sm); background: var(--bg-input); display: flex; flex-direction: column; gap: 8px;">
             <div
               style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--text-primary);">
                 <path
                   d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.84-1.01 2.96 1.11.09 2.24-.58 2.94-1.39z" />
-              </svg> iOS (iPhone & iPad) Users
+              </svg> Apple Users
             </div>
-            <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 0; line-height: 1.4;">
-              Safari browser is required on iOS. Follow these steps to install:
-            </p>
-            <ol
-              style="margin: 0; padding-left: 18px; color: var(--text-secondary); font-size: 0.78rem; line-height: 1.5; display: flex; flex-direction: column; gap: 4px;">
-              <li>Tap the <strong>Share</strong> button (square with an arrow) at the bottom.</li>
-              <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
-              <li>Tap <strong>Add</strong> in the top-right corner.</li>
-            </ol>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div>
+                <span style="font-size: 0.76rem; font-weight: 600; color: var(--text-primary);">iPhone & iPad (Safari
+                  required):</span>
+                <ol
+                  style="margin: 2px 0 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 0.74rem; line-height: 1.45; display: flex; flex-direction: column; gap: 2px;">
+                  <li>Tap the <strong>Share</strong> button (square with arrow) at the bottom.</li>
+                  <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+                  <li>Tap <strong>Add</strong> in the top-right corner.</li>
+                </ol>
+              </div>
+
+              <div style="border-top: 1px dashed var(--border); padding-top: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 600; color: var(--text-primary);">Mac / macOS (Safari
+                  17+):</span>
+                <ul
+                  style="margin: 2px 0 0 0; padding-left: 14px; color: var(--text-secondary); font-size: 0.74rem; line-height: 1.45; list-style-type: none; display: flex; flex-direction: column; gap: 2px;">
+                  <li>Open Safari &rarr; click <strong>File</strong> menu &rarr; select <strong>Add to Dock...</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4px;">
+          <button id="pwaToggleAllBtn"
+            style="background: none; border: none; color: var(--accent); font-size: 0.76rem; text-decoration: underline; cursor: pointer; opacity: 0.85; transition: opacity 0.2s;">Show
+            instructions for other platforms</button>
         </div>
       </div>
       <div class="modal-footer">
@@ -544,8 +628,9 @@
       </div>
       <div class="modal-body">
         <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5;">Tips are
-          entirely optional—the app is 100% free to use. However, your support boosts my morale to keep building and
-          maintaining more apps like this!</p>
+          entirely optional. The app is 100% free to use. However, your support boosts my morale to keep building and
+          maintaining more apps like this! Your tips will directly help cover platform fees to launch and host FlashPing
+          on the Google Play Store and Apple App Store.</p>
 
         <div class="tip-sections" style="display: flex; flex-direction: column; gap: 20px;">
           <!-- 1. Indian Users -->

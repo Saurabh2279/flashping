@@ -86,3 +86,30 @@ export function trapFocus(element) {
     }
   });
 }
+
+/**
+ * Capitalize first letter of each word
+ */
+export function capitalizeName(str) {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+/**
+ * Format timestamp to localized Date and Time
+ */
+export function formatDateTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+}

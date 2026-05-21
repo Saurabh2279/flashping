@@ -1,5 +1,5 @@
 import { elements } from './ui.js';
-import { cleanPhone, showToast, toDigits, lockScroll, trapFocus } from './utils.js';
+import { cleanPhone, showToast, toDigits, lockScroll, trapFocus, capitalizeName } from './utils.js';
 import { COUNTRIES } from './constants.js';
 import {
   saveRecent,
@@ -68,23 +68,9 @@ export function setupHandlers() {
     }
   });
 
-  // Phone Validation
+  // Phone Cleaning
   elements.phoneInput.addEventListener('input', () => {
     elements.phoneInput.value = cleanPhone(elements.phoneInput.value);
-    const r = elements.phoneInput.value;
-    if (!r) {
-      elements.validationMsg.textContent = '';
-      elements.validationMsg.className = 'validation-msg';
-    } else if (r.length < 6) {
-      elements.validationMsg.textContent = '⚠ Number seems too short';
-      elements.validationMsg.className = 'validation-msg';
-    } else if (r.length > 15) {
-      elements.validationMsg.textContent = '⚠ Number seems too long';
-      elements.validationMsg.className = 'validation-msg';
-    } else {
-      elements.validationMsg.textContent = '✓ Looks good';
-      elements.validationMsg.className = 'validation-msg valid';
-    }
   });
 
   // Message Auto-expand & Char Count
@@ -104,8 +90,8 @@ export function setupHandlers() {
   // Send Logic
   elements.sendBtn.addEventListener('click', () => {
     const raw = cleanPhone(elements.phoneInput.value);
-    if (!raw || raw.length < 6) {
-      showToast('⚠ Please enter a valid phone number');
+    if (!raw) {
+      showToast('⚠ Please enter a phone number');
       elements.phoneInput.focus();
       return;
     }
@@ -118,7 +104,7 @@ export function setupHandlers() {
       flag: currentCountry.flag,
       code: currentCountry.code,
       number: raw,
-      name: elements.nameInput.value.trim(),
+      name: capitalizeName(elements.nameInput.value.trim()),
       timestamp: Date.now(),
     });
 
@@ -175,19 +161,13 @@ export function setupHandlers() {
     }
     if (elements.legalModal.classList.contains('show')) {
       elements.legalModal.classList.remove('show');
-      if (window.history.state?.legal) history.back();
       return;
     }
     if (elements.feedbackModal.classList.contains('show')) {
       elements.feedbackModal.classList.remove('show');
-      if (window.history.state?.feedback) history.back();
       return;
     }
-    if (elements.tipModal.classList.contains('show')) {
-      elements.tipModal.classList.remove('show');
-      if (window.history.state?.tip) history.back();
-      return;
-    }
+
 
     if (e.state && e.state.view) {
       switchView(e.state.view, true, false);
@@ -405,7 +385,7 @@ export function setupHandlers() {
   });
 
   elements.modalSave.addEventListener('click', () => {
-    const name = elements.modalName.value.trim();
+    const name = capitalizeName(elements.modalName.value.trim());
     const phone = cleanPhone(elements.modalPhone.value);
     if (!name || !phone) {
       showToast('Name and phone required');
@@ -530,13 +510,11 @@ export function setupHandlers() {
   const openTip = () => {
     elements.tipModal.classList.add('show');
     lockScroll(true);
-    history.pushState({ tip: true }, '');
     setTimeout(() => elements.tipClose.focus(), 100);
   };
-  const closeTip = (back = true) => {
+  const closeTip = () => {
     elements.tipModal.classList.remove('show');
     lockScroll(false);
-    if (back && window.history.state?.tip) history.back();
   };
 
   elements.tipBtn.addEventListener('click', openTip);
