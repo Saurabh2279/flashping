@@ -112,6 +112,14 @@ export function setupHandlers() {
     renderRecents();
     window.open(url, '_blank');
     showToast('Opening WhatsApp...');
+
+    // Clear input fields
+    elements.phoneInput.value = '';
+    elements.nameInput.value = '';
+    elements.messageInput.value = '';
+    elements.messageInput.style.height = '56px';
+    elements.charCount.textContent = '0 / 1000';
+    elements.validationMsg.textContent = '';
   });
 
 
@@ -206,11 +214,14 @@ export function setupHandlers() {
   }
 
   // Recents Actions
-  elements.recentsList.addEventListener('click', (e) => {
+  elements.recentsList.addEventListener('click', async (e) => {
     const del = e.target.closest('[data-del]');
     if (del) {
+      const ok = await showConfirm('Delete Contact', 'Are you sure you want to delete this contact? This action cannot be undone.', 'Delete', 'Cancel');
+      if (!ok) return;
       deleteRecent(+del.dataset.del);
       renderRecents();
+      showToast('Contact deleted');
       return;
     }
     const chat = e.target.closest('[data-chat]');
@@ -564,14 +575,6 @@ export function setupHandlers() {
   elements.tipModal.addEventListener('click', (e) => {
     if (e.target === elements.tipModal) closeTip();
   });
-  elements.copyUpiBtn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(elements.upiIdField.value);
-      showToast('UPI ID copied!');
-    } catch {
-      showToast('Failed to copy UPI ID');
-    }
-  });
 
   // Handle UPI Link clicks on Desktop/Windows
   const upiLink = document.querySelector('.promo-btn.support-btn[href^="upi://"]');
@@ -582,10 +585,10 @@ export function setupHandlers() {
       if (!isMobile) {
         e.preventDefault();
         try {
-          await navigator.clipboard.writeText(elements.upiIdField.value);
-          showToast('💻 Desktop detected: UPI ID copied! Paste it in your UPI app to pay.');
+          await navigator.clipboard.writeText('saurabhrjkmr22@okicici');
+          showToast('UPI app not found');
         } catch {
-          showToast(`UPI ID: ${elements.upiIdField.value}`);
+          showToast('UPI app not found');
         }
       }
     });

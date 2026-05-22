@@ -57,7 +57,7 @@ export const elements = {
   modalCancel: $('modalCancel'),
   modalClose: $('modalClose'),
   tagSuggestions: $('tagSuggestions'),
-  
+
   // Legal Modal
   legalBtn: $('legalBtn'),
   legalModal: $('legalModal'),
@@ -83,8 +83,6 @@ export const elements = {
   tipBtn: $('tipBtn'),
   tipModal: $('tipModal'),
   tipClose: $('tipClose'),
-  copyUpiBtn: $('copyUpiBtn'),
-  upiIdField: $('upiIdField'),
 
   // Custom Confirm Modal
   confirmModal: $('confirmModal'),
