@@ -14,8 +14,8 @@ export function renderCountries(filter = '') {
           (c) => `
     <li class="country-item" data-iso="${c.iso}">
       <span class="country-item-flag">${c.flag}</span>
-      <span class="country-item-name">${c.name}</span>
-      <span class="country-item-code">${c.code}</span>
+      <span class="country-item-name">${esc(c.name)}</span>
+      <span class="country-item-code">${esc(c.code)}</span>
     </li>`
         )
         .join('')
@@ -93,6 +93,10 @@ export function renderSaved(activeTagFilter = 'all', selectionMode = false, sele
   elements.savedCount.textContent = count;
   elements.savedCount.style.display = count > 0 ? 'flex' : 'none';
 
+  if (elements.exportContactsBtn) {
+    elements.exportContactsBtn.disabled = (count === 0);
+  }
+
   if (!list.length) {
     elements.savedList.style.display = 'none';
     elements.savedEmpty.style.display = 'flex';
@@ -105,7 +109,9 @@ export function renderSaved(activeTagFilter = 'all', selectionMode = false, sele
     .map((c, i) => {
       // Find matching country for the flag
       const country = COUNTRIES.find(cnt => c.phone && c.phone.startsWith(cnt.code));
-      const avatar = country ? country.flag : '👤';
+      const avatarHTML = country 
+        ? `<div class="recent-item-flag">${country.flag}</div>` 
+        : `<div class="recent-item-flag" style="display:grid; place-items:center; width:34px; height:34px; background:var(--bg-hover); border-radius:50%; margin: 0 4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" style="display:block"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`;
       const isSelected = selectedIds.has(c.id);
 
       return `
@@ -116,7 +122,7 @@ export function renderSaved(activeTagFilter = 'all', selectionMode = false, sele
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-      ` : `<div class="recent-item-flag">${avatar}</div>`}
+      ` : avatarHTML}
       <div class="saved-item-info">
         <div class="saved-item-name">${esc(c.name || 'Unknown')}</div>
         <div class="saved-item-number">${c.phone || ''}</div>

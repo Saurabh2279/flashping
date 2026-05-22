@@ -85,4 +85,12 @@ export const elements = {
   tipClose: $('tipClose'),
   copyUpiBtn: $('copyUpiBtn'),
   upiIdField: $('upiIdField'),
+
+  // Custom Confirm Modal
+  confirmModal: $('confirmModal'),
+  confirmTitle: $('confirmTitle'),
+  confirmMessage: $('confirmMessage'),
+  confirmOk: $('confirmOk'),
+  confirmCancel: $('confirmCancel'),
+  confirmClose: $('confirmClose'),
 };

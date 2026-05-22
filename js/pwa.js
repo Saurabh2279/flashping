@@ -25,10 +25,10 @@ export function setupPWA() {
     window.__flashping_installed_shown = true;
     // Delay toast to allow the browser to finish the actual installation
     setTimeout(() => {
-      showToast('FlashPing installed successfully! <a href="." target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: underline; margin-left: 8px; display: inline-flex; align-items: center; gap: 4px;">Open App <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: inline-block; vertical-align: -1px; opacity: 0.95;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>');
+      showToast('FlashPing installed successfully! <a href="." target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: underline; margin-left: 8px; display: inline-flex; align-items: center; gap: 4px;">Open App <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: inline-block; vertical-align: -1px; opacity: 0.95;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>', true);
       elements.headerInstallBtn.style.display = 'none';
       deferredPrompt = null;
-    }, 2000);
+    }, 7000);
   });
 
   elements.headerInstallBtn.addEventListener('click', () => {
@@ -154,5 +154,10 @@ export function setupPWA() {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js').catch(() => {});
     });
+  }
+
+  // Request persistent storage to prevent browser from auto-evicting data
+  if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist().catch(() => {});
   }
 }

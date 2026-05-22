@@ -1,6 +1,6 @@
 import { elements } from './ui.js';
-import { cleanPhone, showToast, toDigits, lockScroll, trapFocus, capitalizeName } from './utils.js';
-import { COUNTRIES } from './constants.js';
+import { cleanPhone, showToast, toDigits, lockScroll, trapFocus, capitalizeName, showConfirm } from './utils.js';
+import { COUNTRIES, THEME_KEY } from './constants.js';
 import {
   saveRecent,
   getRecents,
@@ -25,13 +25,14 @@ export function setupHandlers() {
   trapFocus(elements.legalModal);
   trapFocus(elements.feedbackModal);
   trapFocus(elements.tipModal);
+  trapFocus(elements.confirmModal);
 
   // Theme Toggle
   elements.themeToggle.addEventListener('click', () => {
     const c = document.documentElement.getAttribute('data-theme');
     const n = c === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', n);
-    localStorage.setItem('dc-theme', n);
+    localStorage.setItem(THEME_KEY, n);
   });
 
   // Country Picker logic
@@ -91,7 +92,7 @@ export function setupHandlers() {
   elements.sendBtn.addEventListener('click', () => {
     const raw = cleanPhone(elements.phoneInput.value);
     if (!raw) {
-      showToast('⚠ Please enter a phone number');
+      showToast('Please enter a phone number');
       elements.phoneInput.focus();
       return;
     }
@@ -112,6 +113,7 @@ export function setupHandlers() {
     window.open(url, '_blank');
     showToast('Opening WhatsApp...');
   });
+
 
   // Clear Logic
   elements.clearBtn.addEventListener('click', () => {
@@ -247,7 +249,9 @@ export function setupHandlers() {
     }
   });
 
-  elements.clearRecents.addEventListener('click', () => {
+  elements.clearRecents.addEventListener('click', async () => {
+    const ok = await showConfirm('Clear Recents', 'Are you sure you want to clear all recent numbers? This action cannot be undone.', 'Clear All', 'Cancel');
+    if (!ok) return;
     clearAllRecents();
     renderRecents();
     showToast('Recents cleared');
@@ -303,7 +307,7 @@ export function setupHandlers() {
     if (selectionMode) {
       countText.textContent = `${selectedIds.size} selected`;
       if (selectedIds.size > 0) {
-        span.textContent = `Download (${selectedIds.size}) Contacts`;
+        span.textContent = `Export (${selectedIds.size}) Contacts`;
         btn.classList.add('highlight');
       } else {
         span.textContent = 'Select Contacts';
@@ -316,7 +320,7 @@ export function setupHandlers() {
   }
 
   // Saved List Actions
-  elements.savedList.addEventListener('click', (e) => {
+  elements.savedList.addEventListener('click', async (e) => {
     const chat = e.target.closest('[data-schat]');
     if (chat) {
       const c = getSaved().find((x) => x.id === chat.dataset.schat);
@@ -331,6 +335,8 @@ export function setupHandlers() {
     }
     const del = e.target.closest('[data-sdel]');
     if (del) {
+      const ok = await showConfirm('Delete Contact', 'Are you sure you want to delete this contact? This action cannot be undone.', 'Delete', 'Cancel');
+      if (!ok) return;
       deleteSavedContact(del.dataset.sdel);
       renderSaved(activeTagFilter, selectionMode, selectedIds);
       showToast('Contact deleted');
@@ -412,7 +418,7 @@ export function setupHandlers() {
   elements.exportContactsBtn.addEventListener('click', () => {
     const all = getSaved();
     if (!all.length) {
-      showToast('⚠ No contacts to export');
+      showToast('No contacts to export');
       return;
     }
 
@@ -425,14 +431,14 @@ export function setupHandlers() {
     if (selectedIds.size > 0) {
       list = list.filter(c => selectedIds.has(c.id));
     } else {
-      showToast('⚠ Please select at least one contact');
+      showToast('Please select at least one contact');
       return;
     }
 
     let vcf = list
       .map(
         (c) =>
-          `BEGIN:VCARD\nVERSION:3.0\nFN:${c.name}\nTEL;TYPE=CELL:${c.phone}\nEND:VCARD`
+          `BEGIN:VCARD\nVERSION:3.0\nFN:${c.name}\nTEL;TYPE=CELL:${c.phone}${c.tag ? `\nCATEGORIES:${c.tag}` : ''}\nEND:VCARD`
       )
       .join('\n');
     const blob = new Blob([vcf], { type: 'text/vcard' });
@@ -443,7 +449,43 @@ export function setupHandlers() {
     a.click();
     URL.revokeObjectURL(url);
     showToast('Contacts exported');
+    exitSelectionMode();
   });
+
+  // Import Contacts (vCard)
+  const importInput = document.getElementById('importFileInput');
+  const importBtn = document.getElementById('importContactsBtn');
+  if (importBtn && importInput) {
+    importBtn.addEventListener('click', () => importInput.click());
+    importInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target.result;
+        const cards = text.split('BEGIN:VCARD').filter(Boolean);
+        let imported = 0;
+        cards.forEach(card => {
+          const fnMatch = card.match(/FN[^:]*:(.*)/i);
+          const telMatch = card.match(/TEL[^:]*:(.*)/i);
+          const catMatch = card.match(/CATEGORIES[^:]*:(.*)/i);
+          if (fnMatch && telMatch) {
+            const name = fnMatch[1].trim();
+            const phone = telMatch[1].trim();
+            const tag = catMatch ? catMatch[1].trim() : '';
+            if (name && phone) {
+              addSavedContact({ name, phone, tag });
+              imported++;
+            }
+          }
+        });
+        renderSaved(activeTagFilter);
+        showToast(`${imported} contact${imported !== 1 ? 's' : ''} imported`);
+      };
+      reader.readAsText(file);
+      importInput.value = ''; // Reset for re-import
+    });
+  }
 
   // Legal Modal Handlers
   const openLegal = () => {
@@ -530,4 +572,22 @@ export function setupHandlers() {
       showToast('Failed to copy UPI ID');
     }
   });
+
+  // Handle UPI Link clicks on Desktop/Windows
+  const upiLink = document.querySelector('.promo-btn.support-btn[href^="upi://"]');
+  if (upiLink) {
+    upiLink.addEventListener('click', async (e) => {
+      const ua = window.navigator.userAgent.toLowerCase();
+      const isMobile = /android|iphone|ipad|ipod/.test(ua);
+      if (!isMobile) {
+        e.preventDefault();
+        try {
+          await navigator.clipboard.writeText(elements.upiIdField.value);
+          showToast('💻 Desktop detected: UPI ID copied! Paste it in your UPI app to pay.');
+        } catch {
+          showToast(`UPI ID: ${elements.upiIdField.value}`);
+        }
+      }
+    });
+  }
 }

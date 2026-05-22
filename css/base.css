@@ -18,6 +18,8 @@ body {
   line-height: 1.6;
   transition: background var(--transition), color var(--transition);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 body.modal-open {
